@@ -75,14 +75,53 @@ void imprimeLista(Descritor *l){
 }
 
 void removerElemento(Descritor *l, int v){
-    
+    NoLista *ant = NULL, *p;
+    for(p = l->prim; p!=NULL && p->info != v; p = p->prox){
+        ant = p;
+    }
+    if(p==NULL){
+        printf("ELEMENTO NAO ENCONTRADO\n");
+    }
+    else{
+        if(ant == NULL){
+            l->prim = p->prox;
+            if(l->prim == NULL){
+                l->ult = NULL;
+            }
+        }
+        else{
+            ant->prox = p->prox;
+            if(ant->prox == NULL){
+                l->ult = ant;
+            }
+        }
+        free(p);
+        l->n--;
+    }
 }
 
 void liberarLista(Descritor *l){
-
+    if(!estaVazia(l)){
+        NoLista *p;
+        NoLista *temp;
+        for(p = l->prim; p != NULL; p=temp){
+            temp = p->prox;
+            free(p);
+        }
+    }
+    l->prim = l->ult = NULL;
+    l->n = 0;
 }
 
 NoLista* buscarElemento(Descritor *l, int v){
+    NoLista *p;
+    if(!estaVazia(l)){   
+        for(p = l->prim; p!=NULL && p->info != v; p = p->prox){}
+            if(p != NULL && p->info == v){
+                return p;
+            }
+    }
+    return NULL;
 }
 
 int main(){
@@ -99,4 +138,19 @@ int main(){
     insereElementoFim(&l, 2);
     
     imprimeLista(&l);
+
+    removerElemento(&l, 2);
+
+    imprimeLista(&l);
+
+    if(buscarElemento(&l, 22) != NULL){
+        printf("ELEMENTO ENCONTRADO\n");
+    }
+    else{
+        printf("ELEMENTO NAO ENCONTRADO\n");
+    }
+    
+
+    //liberarLista(&l);
+
 }
