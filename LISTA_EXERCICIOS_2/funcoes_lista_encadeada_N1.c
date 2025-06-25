@@ -72,15 +72,14 @@ Nolista *separa(Nolista **l, int n){
     Nolista *p;
     Nolista *temp;
     for(p = *l; p->prox!=NULL && p->info!=n; p=p->prox);
-    if(p->prox == NULL){
+    if(p == NULL){
         printf("ELEMENTO NAO ENCONTRADO\n");
     }
     else{
         Nolista *l2;
         criarLista(&l2);
-        temp = p->prox;
+        l2 = p->prox;
         p->prox = NULL;
-        l2 = temp;
         return l2;
     }
 }
