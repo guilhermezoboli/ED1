@@ -1,7 +1,11 @@
 {
     "files.associations": {
+        "*.c": "c",
         "stdlib.h": "c",
-        "MATRIX_ALOC_DINA.C": "cpp"
+        "MATRIX_ALOC_DINA.C": "cpp",
+        "pilhavetor.h": "c",
+        "stdio.h": "c",
+        "pilhaencadeada.h": "c"
     }
 }
 
