@@ -68,15 +68,17 @@ float maior(Fila *f){
     }
 }
 
-void remover(Fila *f){
+float remover(Fila *f){
     if(!estaVazia(f)){
         NoLista *p;
         p = f->ini;
         f->ini = p->prox;
         if(f->ini == NULL){
-            f->ini = f->fim;
+            f->fim = NULL;
         }
+        float valor = p->info;
         free(p);
+        return valor;
     }
     else{
         printf("LISTA VAZIA\n");
@@ -130,25 +132,44 @@ void combinaFila(Fila* f_res, Fila* f1, Fila* f2){
 }
 
 void combinaFilasRecursiva(Fila* f_res, Fila* f1, Fila* f2){
-    
+    float valor;
+    if(estaVazia(f1) && estaVazia(f2)){
+        return;
+    }
+
+    if(!estaVazia(f1)){
+        valor = remover(f1);
+        inserir(f_res, valor);
+    }
+
+    if(!estaVazia(f2)){
+        valor = remover(f2);
+        inserir(f_res, valor);
+    }
+
+    combinaFilasRecursiva(f_res, f1, f2);
 }
+
+
 
 int main(){
     Fila *f_res = criarFila();
     Fila *f1 = criarFila();
     Fila *f2 = criarFila();
 
-    //inserir(f1, 1);
-    //inserir(f1, 3);
-    //inserir(f1, 5);
-    /*inserir(f2, 2);
+    inserir(f1, 1);
+    inserir(f1, 3);
+    inserir(f1, 5);
+    inserir(f2, 2);
     inserir(f2, 4);
-    inserir(f2, 6);*/
+    inserir(f2, 6);
 
     imprime(f1);
     imprime(f2);
 
-    combinaFila(f_res, f1, f2);
+    //combinaFila(f_res, f1, f2);
+
+    combinaFilasRecursiva(f_res, f1, f2);
 
     imprime(f_res);
     

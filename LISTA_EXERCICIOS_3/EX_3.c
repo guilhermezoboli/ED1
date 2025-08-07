@@ -81,16 +81,24 @@ void imprime(Pilha *p){
     }
 }*/
 
-void concatenaPilhas(Pilha *p1, Pilha *p2){
+void concatenaPilhasPonteiro(Pilha *p1, Pilha *p2){
     if(!estaVazia(p2)){
         Nolista *t;
         for(t = p2->prim; t->prox != NULL; t = t->prox){}
         t->prox = p1->prim;
         p1->prim = p2->prim;
+        
     }
     else{
         printf("A LISTA P2 ESTA VAZIA\n");
     }
+    //liberarPilha(p2);
+}
+
+void concatenaPilhas(Pilha* p1, Pilha* p2){
+    Pilha *auxPilha = criarPilha();
+
+
 }
 
 int main(){
@@ -109,7 +117,7 @@ int main(){
     imprime(p);
     imprime(p1);
 
-    concatenaPilhas(p, p1);
+    concatenaPilhasPonteiro(p, p1);
 
     imprime(p);
 
